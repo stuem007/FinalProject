@@ -1,0 +1,26 @@
+# 
+# Wavefront material file
+# Converted by the DEEP Exploration 
+# Right Hemisphere, LTD
+# http://www.righthemisphere.com/
+# 
+newmtl arrow
+	 Ka 0 0 0
+	 Kd 0.784314 0.784314 0.784314
+	 Ks 0.0392157 0.0392157 0.0392157
+	 illum 2
+	 Ns 11.3137
+map_Kd wood05.jpg
+newmtl cuivre2
+	 Ka 0 0 0
+	 Kd 0.94902 0.752941 0.517647
+	 Ks 0.521961 0.414118 0.284706
+	 illum 2
+	 Ns 22.6274
+newmtl wing
+	 Ka 0 0 0
+	 Kd 0.909804 0.333333 0.737255
+	 Ks 0.454902 0.166667 0.368627
+	 illum 2
+	 Ns 128
+map_Kd wings.jpg

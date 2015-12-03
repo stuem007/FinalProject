@@ -42,7 +42,7 @@ void setup()
 void draw()
 {
   camera(camX, camY, camZ, ctrX, ctrY, ctrZ, 0, 1, 0);
-  
+  lights();
   background(38, 170, 250); 
   //background(255, 255, 255);
   

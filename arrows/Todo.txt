@@ -1,0 +1,13 @@
+To do:
+Add in wood block target
+Add in water target (and water particle)
+Add in UV texture cloth (and collision detection)
+
+change camera control (no longer fixed look point)
+change user control (charge up arrow for power)
+add in arrow rotation (take dot product of previous velocity)
+add wind velocity to arrow velocity (and cloth maybe)
+
+3d model for arrow (plus texture)
+3d model for wooden block (plus texture)
+3d model for water container

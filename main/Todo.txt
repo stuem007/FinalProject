@@ -8,6 +8,6 @@ change user control (charge up arrow for power)
 add in arrow rotation (take dot product of previous velocity)
 add wind velocity to arrow velocity (and cloth maybe)
 
-3d model for arrow (plus texture)
-3d model for wooden block (plus texture)
-3d model for water container
+3d model for arrow (plus texture)-done
+3d model for wooden block (plus texture)-done
+3d model for water container -done

@@ -9,7 +9,7 @@ class Arrow
  
   Arrow()
   {
-    this(new PVector(0, PI / 2), new PVector(300, 300, 0));
+    this(new PVector(0, PI / 2), new PVector(300, 300, 300));
   }
   
   Arrow(PVector orientIn, PVector posIn)
@@ -30,16 +30,14 @@ class Arrow
   {
     if (!nocked)
     {
-      vel.add(PVector.mult(gravity, dT));
-      vel.add(PVector.mult(acc, dT));
-      pos.add(PVector.mult(vel, dT));
-      rect.translate(vel.x * dT, vel.y * dT, vel.z * dT);
-      
       pushMatrix();
       translate(pos.x, pos.y, pos.z);
-      
+      rect.rotate(PI / 300);
       popMatrix();
-      
+      /*vel.add(PVector.mult(gravity, dT));
+      vel.add(PVector.mult(acc, dT));
+      pos.add(PVector.mult(vel, dT));
+      rect.translate(vel.x * dT, vel.y * dT, vel.z * dT);*/
     }
     shape(rect); 
   }

@@ -33,18 +33,26 @@ void keyPressed()
   else if (key == 'w')
   {
     camera.yDir = 1;
+    camera.ctrZ -= 50;
+    camera.camZ -= 50;
   }
   else if (key == 'a')
   {
     camera.xDir = -1;
+    camera.ctrX -= 50;
+    camera.camX -= 50;
   }
   else if (key == 's')
   {
     camera.yDir -= 1;
+    camera.ctrZ += 50;
+    camera.camZ += 50;
   }
   else if (key == 'd')
   {
     camera.xDir += 1;
+    camera.ctrX += 50;
+    camera.camX += 50;
   }
   else if (key == 'r')
   {

@@ -6,7 +6,7 @@ class Cloth extends Obstacle
   Vertex vertices[][] = new Vertex[15][15];
   float ks = 20;
   float kd = 0.8;
-  int spread = 30;
+  int spread = 20;
  
   Cloth()
   {

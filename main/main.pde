@@ -10,7 +10,7 @@ float timeCount = 0;
 float vAir = 0;
 PVector wind = new PVector(0, -0.1, 0);
 PShape wall;
-PVector gravity = new PVector(0, 10, 0);
+PVector gravity = new PVector(0, 30, 0);
 float xWidth = 1500;
 float zDepth = 1500;
 float yHeight = 500;
@@ -102,11 +102,11 @@ public void createStartingObjects()
   
   Arrows.add(new Arrow());
   
-  Obstacles.add(new Cloth(20, 0, 0));
+  //Obstacles.add(new Cloth(20, 0, 0));
   
-  //Obstacles.add(new Cloth(300, 0, 0));
+  Obstacles.add(new Cloth(50, 0, 0));
   
-  
+  Obstacles.add(new Water(new PVector(600, yHeight, 100), 400));
   
 }
 

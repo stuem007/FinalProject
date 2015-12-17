@@ -10,6 +10,8 @@ class Water extends Obstacle
   // PVector x is velocity, y is height
   float heights[][] = new float[numCells][numCells];
   float vels[][] = new float[numCells][numCells];
+  ArrayList<Particle> particles = new ArrayList<Particle>();
+  ArrayList<Particle> expired = new ArrayList<Particle>();
  
   Water()
   {
@@ -66,32 +68,39 @@ class Water extends Obstacle
         {
           if (a.pos.y + a.vel.y + a.acc.y > (yHeight - (wallH - 5)))
           {
-            Sounds.add(new Sound(0.3)); 
+            Sounds.add(new Sound(0.05)); 
             iCollide = (int)((a.pos.x - (pos.x - wallL / 2)) / cellSize);
             jCollide = (int)((a.pos.z - pos.z) / cellSize);
             vels[iCollide][jCollide] = 10;
-            /*if (iCollide > 0)
+                 
+            for (int i = 0; i < 100; i ++)
             {
-              vels[iCollide - 1][jCollide] = a.pos.y - yHeight; 
+              particles.add(new Particle(new PVector(a.pos.x - (pos.x - wallL / 2), -1 * (wallH - 5), a.pos.z - pos.z), new PVector(random(-20, 20), -1 * random(arrowSpeed / 4, arrowSpeed / 2), random(-20, 20)), new PVector(0, 50, 0), 5)) ;
             }
-            else if (iCollide < numCells - 1)
-            {
-              vels[iCollide + 1][jCollide] = a.pos.y - yHeight; 
-            }
-            else if (jCollide > 0)
-            {
-              vels[iCollide][jCollide - 1] = a.pos.y - yHeight; 
-            }
-            else if (jCollide < numCells - 1)
-            {
-              vels[iCollide][jCollide + 1] = a.pos.y - yHeight; 
-            }*/
           }
         }        
       }
     }
-      
     
+    PShape drop = createShape(SPHERE, 5);
+    drop.translate(pos.x - wallL / 2, yHeight, pos.z);
+    drop.setFill(color(0, 0, 255));
+    drop.setStroke(255);
+    for (Particle p : particles)
+    {
+      p.vel = new PVector(p.vel.x + p.acc.x, p.vel.y + p.acc.y, p.vel.z + p.acc.z);
+      p.pos = new PVector(p.pos.x + p.vel.x, p.pos.y + p.vel.y, p.pos.z + p.vel.z);
+      
+      drop.translate(p.pos.x, p.pos.y, p.pos.z);
+      shape(drop);
+      drop.translate(-1 * p.pos.x, -1 * p.pos.y, -1 * p.pos.z);
+      
+      if (p.pos.y > -1 * (wallH - 6))
+      {
+        expired.add(p) ;
+      }
+    }
+    particles.removeAll(expired);
     
     float nSum;
     int nCt;
@@ -158,8 +167,25 @@ class Water extends Obstacle
         cell.translate(0, heights[i][j], cellSize);
       }
       cell.translate(cellSize, 0, -1 * wallL);
-    }
-    
-  }
-   
+    }    
+  }  
+  
+}
+
+public class Particle
+{
+  PVector pos;
+  PVector vel;
+  PVector acc;
+  float rad;
+  int floorCount = 0;
+  boolean markedForDelete = false;
+  
+  public Particle(PVector posIn, PVector velIn, PVector accIn, float radIn)
+  {
+    pos = posIn;
+    vel = velIn;
+    acc = accIn;
+    rad = radIn;
+  }  
 }

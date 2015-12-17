@@ -1,5 +1,4 @@
-float arrowSpeed = 100;
-  
+ 
 void keyPressed()
 {
   if (key == 'i')
@@ -104,5 +103,16 @@ void keyPressed()
   else if (key == 't')
   {
     Sounds.add(new Sound(0.1));
+  }
+  else if (key == '.')
+  {
+    arrowSpeed += 50;
+  }
+  else if (key == ',')
+  {
+    if (arrowSpeed > 50)
+    {
+      arrowSpeed -= 50;
+    }
   }
 }

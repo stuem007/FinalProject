@@ -200,6 +200,7 @@ class Cloth extends Obstacle
     }
     
     // Arrow Collisions
+    int iCollide, jCollide;
     for (Arrow a : Arrows)
     {
       if (a.moving)
@@ -208,7 +209,19 @@ class Cloth extends Obstacle
         {
           if ((a.pos.z < zStart && a.pos.z + a.vel.z + a.acc.z > zStart) || (a.pos.z > zStart && a.pos.z + a.vel.z + a.acc.z < zStart))
           {
-            Sounds.add(new Sound(0.3)); 
+            if (a.pos.y > yStart && a.pos.y < yStart + spread * 14)
+            {
+              Sounds.add(new Sound(0.2)); 
+              iCollide = (int)((a.pos.x - xStart) / spread);
+              jCollide = (int)((a.pos.y - yStart) / spread);
+              vertices[iCollide][jCollide].connectedTop = false;
+              vertices[iCollide][jCollide].connectedRight = false;
+              vertices[iCollide][jCollide].velTemp.add(new PVector(0.5 * arrowSpeed, 0, 0));
+              if (iCollide > 0)
+              {
+                vertices[iCollide - 1][jCollide].velTemp.add(new PVector(-0.5 * arrowSpeed, 0, 0));  
+              }
+            }
           }
         }        
       }

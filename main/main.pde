@@ -19,10 +19,10 @@ PVector gravity = new PVector(0, 30, 0);
 float xWidth = 1500;
 float zDepth = 1500;
 float yHeight = 500;
+float arrowSpeed = 300;
 
 Minim minim;
 AudioOutput aOut;
-ArrayList<Oscil> waves;
 
 void setup()
 {  
@@ -96,7 +96,7 @@ public void createStartingObjects()
   
   //Obstacles.add(new Cloth(20, 0, 0));
   
-  Obstacles.add(new Cloth(50, 50, 50));
+  Obstacles.add(new Cloth(50, 50, 100));
   
   Obstacles.add(new Water(new PVector(1200, yHeight, 100), 400));
   

@@ -211,7 +211,7 @@ class Cloth extends Obstacle
           {
             if (a.pos.y > yStart && a.pos.y < yStart + spread * 14)
             {
-              Sounds.add(new Sound(0.2)); 
+              Sounds.add(new Sound(0.15, "cloth")); 
               iCollide = (int)((a.pos.x - xStart) / spread);
               jCollide = (int)((a.pos.y - yStart) / spread);
               vertices[iCollide][jCollide].connectedTop = false;

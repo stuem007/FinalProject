@@ -94,6 +94,7 @@ void keyPressed()
     Arrow last = Arrows.get(Arrows.size() - 1);
     if (last.nocked)
     {
+      Sounds.add(new Sound(0.15, "arrow"));
       last.vel = new PVector(0, 0, -1 * arrowSpeed);
       //last.vel = new PVector(160 * cos(last.orient.y), 0, -160 * sin(last.orient.y));
       last.nocked = false;
@@ -102,7 +103,7 @@ void keyPressed()
   }
   else if (key == 't')
   {
-    Sounds.add(new Sound(0.1));
+    //Sounds.add(new Sound(0.1));
   }
   else if (key == '.')
   {

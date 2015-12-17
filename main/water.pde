@@ -72,7 +72,7 @@ class Water extends Obstacle
         {
           if (nextY > (yHeight - (wallH - 5)))
           {
-            Sounds.add(new Sound(0.05)); 
+            Sounds.add(new Sound(0.05, "water")); 
             iCollide = (int)((nextX - (pos.x - wallL / 2)) / cellSize);
             jCollide = (int)((nextZ - pos.z) / cellSize);
             vels[iCollide][jCollide] = 10;

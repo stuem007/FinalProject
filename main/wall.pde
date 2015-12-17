@@ -27,7 +27,7 @@ class Wall extends Obstacle
         {
           if ((a.pos.x < pos.x && a.pos.x + (a.vel.x + a.acc.x) * dT > pos.x) || (a.pos.x > pos.x && a.pos.x + (a.vel.x + a.acc.x) * dT < pos.x))
           {
-            Sounds.add(new Sound(0.15));
+            Sounds.add(new Sound(0.15, "wall"));
             a.update(dT);
             a.moving = false;
           }
@@ -36,7 +36,7 @@ class Wall extends Obstacle
         {
           if ((a.pos.y < pos.y && a.pos.y + (a.vel.y + a.acc.y) * dT > pos.y) || (a.pos.y > pos.y && a.pos.y + (a.vel.y + a.acc.y) * dT < pos.y))
           {
-            Sounds.add(new Sound(0.15));  
+            Sounds.add(new Sound(0.15, "wall"));  
             a.update(dT);
             a.moving = false;
           }
@@ -45,7 +45,7 @@ class Wall extends Obstacle
         {
           if (((a.pos.z < pos.z && a.pos.z + (a.vel.z + a.acc.z) * dT > pos.z) || (a.pos.z > pos.z && a.pos.z + (a.vel.z + a.acc.z) * dT < pos.z)) && a.pos.x >= pos.x - dim.x / 2 && a.pos.x <= pos.x + dim.x / 2)
           {
-            Sounds.add(new Sound(0.15));  
+            Sounds.add(new Sound(0.05, "wall"));  
             a.update(dT);
             a.moving = false;
           }

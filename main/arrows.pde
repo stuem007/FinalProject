@@ -7,6 +7,7 @@ class Arrow
   PShape rect;
   boolean nocked;
   boolean moving = false;
+  float len = 100;
  
   Arrow()
   {

@@ -98,7 +98,7 @@ class Cloth extends Obstacle
         
         diff = new PVector(v2.pos.x - v1.pos.x, v2.pos.y - v1.pos.y, v2.pos.z - v1.pos.z);
         float len = sqrt(diff.dot(diff));
-        if (len > 70)
+        if (len > spread * 7 / 3)
         {
           v2.connectedRight = false; 
         }

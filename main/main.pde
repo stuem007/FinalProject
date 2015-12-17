@@ -71,10 +71,10 @@ void draw()
   updateObjects(dT);
   
   
-  for (PShape w : Room)
+  /*for (PShape w : Room)
   {
     shape(w);
-  }
+  }*/
   
   for (Arrow a : Arrows)
   {
@@ -102,51 +102,14 @@ void draw()
 
 public void createStartingObjects()
 {
-  PImage im = loadImage("floor.jpg");
-  
-  wall = createShape(BOX, xWidth, 0, zDepth);
-  wall.translate(xWidth / 2, yHeight, zDepth / 2);
-  wall.setTexture(im);
-  //wall.setFill(color(85, 47, 39));
-  //wall.setStroke(192);
-  Room.add(wall);
-  
-  wall = createShape(BOX, xWidth, 0, zDepth);
-  wall.translate(xWidth / 2, 0, zDepth / 2);
-  wall.setTexture(im);
-  //wall.setFill(color(85, 47, 39));
-  //wall.setStroke(192);
-  Room.add(wall);
-  
+  PImage im = loadImage("floor.jpg");  
+  Obstacles.add(new Wall(new PVector(xWidth, 0, zDepth), new PVector(xWidth / 2, yHeight, zDepth / 2), im));
+  Obstacles.add(new Wall(new PVector(xWidth, 0, zDepth), new PVector(xWidth / 2, 0, zDepth / 2), im));
   im = loadImage("wall.jpg");
-  
-  wall = createShape(BOX, xWidth, yHeight, 0);
-  wall.translate(xWidth / 2, yHeight - height / 2, 0);
-  wall.setTexture(im);
-  //wall.setFill(color(85, 47, 39));
-  //wall.setStroke(192);
-  Room.add(wall);
-  
-  wall = createShape(BOX, xWidth, yHeight, 0);
-  wall.translate(xWidth / 2, yHeight - height / 2, zDepth);
-  wall.setTexture(im);
-  //wall.setFill(color(85, 47, 39));
-  //wall.setStroke(192);
-  Room.add(wall);
-  
-  wall = createShape(BOX, 0, yHeight, zDepth);
-  wall.translate(0, yHeight - height / 2, zDepth / 2);
-  wall.setTexture(im);
-  //wall.setFill(color(85, 47, 39));
-  //wall.setStroke(192);
-  Room.add(wall);
-  
-  wall = createShape(BOX, 0, yHeight, zDepth);
-  wall.translate(xWidth, yHeight - height / 2, zDepth / 2);
-  wall.setTexture(im);
-  //wall.setFill(color(85, 47, 39));
-  //wall.setStroke(192);
-  Room.add(wall);
+  Obstacles.add(new Wall(new PVector(xWidth, yHeight, 0), new PVector(xWidth / 2, yHeight - height / 2, 0), im));
+  Obstacles.add(new Wall(new PVector(xWidth, yHeight, 0), new PVector(xWidth / 2, yHeight - height / 2, zDepth), im));
+  Obstacles.add(new Wall(new PVector(0, yHeight, zDepth), new PVector(0, yHeight - height / 2, zDepth / 2), im));
+  Obstacles.add(new Wall(new PVector(0, yHeight, zDepth), new PVector(xWidth, yHeight - height / 2, zDepth / 2), im));
   
   Arrows.add(new Arrow());
   

@@ -1,7 +1,7 @@
 // This class will house the archery target, pending the definition of the actual PShape.
 class Target extends Obstacle
 {
-  PShape shape;
+  PShape wall;
   PVector pos;
   float rad;
  
@@ -14,7 +14,6 @@ class Target extends Obstacle
   {
     pos = posIn;
     rad = radIn;
-    shape = createShape();
   }
  
   

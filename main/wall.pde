@@ -43,7 +43,7 @@ class Wall extends Obstacle
         }
         else if (a.len > dim.z)
         {
-          if ((a.pos.z < pos.z && a.pos.z + (a.vel.z + a.acc.z) * dT > pos.z) || (a.pos.z > pos.z && a.pos.z + (a.vel.z + a.acc.z) * dT < pos.z))
+          if (((a.pos.z < pos.z && a.pos.z + (a.vel.z + a.acc.z) * dT > pos.z) || (a.pos.z > pos.z && a.pos.z + (a.vel.z + a.acc.z) * dT < pos.z)) && a.pos.x >= pos.x - dim.x / 2 && a.pos.x <= pos.x + dim.x / 2)
           {
             Sounds.add(new Sound(0.15));  
             a.update(dT);

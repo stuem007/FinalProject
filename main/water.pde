@@ -46,7 +46,7 @@ class Water extends Obstacle
     {
       for (int j = 0; j < numCells; j ++)
       {
-        heights[i][j] = random(wallH - 25, wallH - 5);
+        heights[i][j] = wallH - 10;
         vels[i][j] = 0;
       }
     }
@@ -57,15 +57,35 @@ class Water extends Obstacle
   void update(float dT)
   {
      
+    int iCollide, jCollide;
     for (Arrow a : Arrows)
     {
       if (a.moving)
       {
-        if (a.pos.x > pos.x && a.pos.x < pos.x + wallL && a.pos.z > pos.z && a.pos.z < pos.z + wallL)
+        if (a.pos.x > (pos.x - wallL / 2) && a.pos.x < pos.x + wallL / 2 && a.pos.z > pos.z && a.pos.z < pos.z + wallL)
         {
           if (a.pos.y + a.vel.y + a.acc.y > (yHeight - (wallH - 5)))
           {
             Sounds.add(new Sound(0.3)); 
+            iCollide = (int)((a.pos.x - (pos.x - wallL / 2)) / cellSize);
+            jCollide = (int)((a.pos.z - pos.z) / cellSize);
+            vels[iCollide][jCollide] = 10;
+            /*if (iCollide > 0)
+            {
+              vels[iCollide - 1][jCollide] = a.pos.y - yHeight; 
+            }
+            else if (iCollide < numCells - 1)
+            {
+              vels[iCollide + 1][jCollide] = a.pos.y - yHeight; 
+            }
+            else if (jCollide > 0)
+            {
+              vels[iCollide][jCollide - 1] = a.pos.y - yHeight; 
+            }
+            else if (jCollide < numCells - 1)
+            {
+              vels[iCollide][jCollide + 1] = a.pos.y - yHeight; 
+            }*/
           }
         }        
       }
@@ -103,6 +123,17 @@ class Water extends Obstacle
         }
         vels[i][j] += (nSum / nCt) - heights[i][j];
         vels[i][j] *= 0.95;
+      }
+    }
+    
+    for (int i = 0; i < numCells; i ++)
+    {
+      for (int j = 0; j < numCells; j ++)
+      {
+        if (heights[i][j] > wallH - 10)
+        {
+          heights[i][j] -= 5; 
+        }
       }
     }
     

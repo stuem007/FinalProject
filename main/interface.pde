@@ -1,4 +1,4 @@
-float arrowSpeed = 300;
+float arrowSpeed = 100;
   
 void keyPressed()
 {

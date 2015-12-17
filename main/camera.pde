@@ -30,7 +30,7 @@ class Camera
     xDir = 0;
     yDir = 0;
     
-    camera(camX, camY, camZ, ctrX, ctrY, ctrZ, upX, upY, upZ);
+    camera(camX, camY, camZ, 200*sin((float)mouseX/(float)width*TWO_PI)+ctrX, ctrY, 200*cos((float)mouseX/(float)width*TWO_PI)+ctrZ, upX, upY, upZ);
   }
   
   

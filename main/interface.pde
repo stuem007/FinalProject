@@ -68,13 +68,13 @@ void keyPressed()
     if (last.nocked)
     {
       last.vel = new PVector(160 * cos(last.orient.y), 0, -160 * sin(last.orient.y));
-      last.nocked = false;      
+      last.nocked = false;
+      last.moving = true;
     }
   }
   else if (key == 't')
   {
-    sound.test(); 
-    
+    Sounds.add(new Sound(0.1));
   }
 }
 

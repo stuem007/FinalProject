@@ -6,6 +6,7 @@ class Arrow
   PVector acc;
   PShape rect;
   boolean nocked;
+  boolean moving = false;
  
   Arrow()
   {

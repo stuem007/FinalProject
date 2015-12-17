@@ -4,12 +4,13 @@ import ddf.minim.ugens.*;
 ArrayList<Arrow> Arrows = new ArrayList<Arrow>();
 ArrayList<Obstacle> Obstacles = new ArrayList<Obstacle>();
 ArrayList<PShape> Room = new ArrayList<PShape>();
+ArrayList<Sound> Sounds = new ArrayList<Sound>();
+ArrayList<Sound> expiredSounds = new ArrayList<Sound>();
 PShape arrow;
 float lastTime;
 float currentTime;
 float dT;
 public static Camera camera;
-public static Sound sound;
 float timeCount = 0;
 float vAir = 0;
 PVector wind = new PVector(0, -0.1, 0);
@@ -21,7 +22,7 @@ float yHeight = 500;
 
 Minim minim;
 AudioOutput aOut;
-Oscil wave;
+ArrayList<Oscil> waves;
 
 void setup()
 {  
@@ -34,9 +35,18 @@ void setup()
   
   minim = new Minim(this);
   aOut = minim.getLineOut();
+  waves = new ArrayList<Oscil>();
+  waves.add(new Oscil(55, 0.5f, Waves.QUARTERPULSE));
   
-  wave = new Oscil(440, 0.5f, Waves.SINE);
-  wave.patch(aOut);
+  for (Oscil w : waves)
+  {
+   // w.patch(aOut); 
+  }
+  
+  //(new Noise(110, Noise.Tint.PINK)).patch(aOut);
+  
+  //wave = new Oscil(460, 0.5f, Waves.SINE);
+  //wave.patch(aOut);
   
   
   lastTime = millis();
@@ -76,6 +86,16 @@ void draw()
     o.update(dT);  
   }
   
+  for (Sound s : Sounds)
+  {
+    s.time -= dT;
+    if (s.time <= 0)
+    {
+      s.end();
+      expiredSounds.add(s);
+    }
+  }
+  Sounds.removeAll(expiredSounds); 
 
 }
 
@@ -85,7 +105,14 @@ public void createStartingObjects()
   PImage im = loadImage("floor.jpg");
   
   wall = createShape(BOX, xWidth, 0, zDepth);
-  wall.translate(xWidth / 2, height, zDepth / 2);
+  wall.translate(xWidth / 2, yHeight, zDepth / 2);
+  wall.setTexture(im);
+  //wall.setFill(color(85, 47, 39));
+  //wall.setStroke(192);
+  Room.add(wall);
+  
+  wall = createShape(BOX, xWidth, 0, zDepth);
+  wall.translate(xWidth / 2, 0, zDepth / 2);
   wall.setTexture(im);
   //wall.setFill(color(85, 47, 39));
   //wall.setStroke(192);
@@ -94,28 +121,28 @@ public void createStartingObjects()
   im = loadImage("wall.jpg");
   
   wall = createShape(BOX, xWidth, yHeight, 0);
-  wall.translate(xWidth / 2, height - yHeight / 2, 0);
+  wall.translate(xWidth / 2, yHeight - height / 2, 0);
   wall.setTexture(im);
   //wall.setFill(color(85, 47, 39));
   //wall.setStroke(192);
   Room.add(wall);
   
   wall = createShape(BOX, xWidth, yHeight, 0);
-  wall.translate(xWidth / 2, height - yHeight / 2, zDepth);
+  wall.translate(xWidth / 2, yHeight - height / 2, zDepth);
   wall.setTexture(im);
   //wall.setFill(color(85, 47, 39));
   //wall.setStroke(192);
   Room.add(wall);
   
   wall = createShape(BOX, 0, yHeight, zDepth);
-  wall.translate(0, height - yHeight / 2, zDepth / 2);
+  wall.translate(0, yHeight - height / 2, zDepth / 2);
   wall.setTexture(im);
   //wall.setFill(color(85, 47, 39));
   //wall.setStroke(192);
   Room.add(wall);
   
   wall = createShape(BOX, 0, yHeight, zDepth);
-  wall.translate(xWidth, height - yHeight / 2, zDepth / 2);
+  wall.translate(xWidth, yHeight - height / 2, zDepth / 2);
   wall.setTexture(im);
   //wall.setFill(color(85, 47, 39));
   //wall.setStroke(192);
@@ -125,7 +152,7 @@ public void createStartingObjects()
   
   //Obstacles.add(new Cloth(20, 0, 0));
   
-  Obstacles.add(new Cloth(50, 0, 0));
+  Obstacles.add(new Cloth(50, 50, 50));
   
   Obstacles.add(new Water(new PVector(1200, yHeight, 100), 400));
   
@@ -180,13 +207,13 @@ public void boundsCheck(Vertex v)
       v.velTemp.y *= -0.7;
       v.pos.y += 1 - v.pos.y;
     }
-    if (v.pos.y >= 500)
+    if (v.pos.y >= yHeight)
     {
-      v.point.translate(0, 499 - v.pos.y, 0);
+      v.point.translate(0, yHeight - 1 - v.pos.y, 0);
       v.velTemp.x = 0;
       v.velTemp.y = 0;
       v.velTemp.z = 0;
-      v.pos.y += 499 - v.pos.y;
+      v.pos.y += yHeight - 1 - v.pos.y;
     }
     
     if (v.pos.z <= -250)

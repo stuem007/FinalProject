@@ -1,37 +1,26 @@
 class Sound
 {
+  float time;
+  ArrayList<Oscil> osc = new ArrayList<Oscil>();
   
-  PApplet app;
-  
-  Sound(PApplet appIn)
+  Sound(float timeIn)
   {
-    app = appIn;
-  }
-  
-  void playRelease()
-  {
+    time = timeIn;
+    osc.add(new Oscil(55, 0.5f, Waves.QUARTERPULSE));
     
-  }
-  
-  void playWater()
-  {
     
+    for (Oscil o : osc)
+    {
+      o.patch(aOut); 
+    }
   }
-  
-  void playTarget()
-  {
     
+  void end()
+  {
+    for (Oscil o : osc)
+    {
+      o.unpatch(aOut); 
+    }
   }
-  
-  void playCloth()
-  {
-    
-  }
-  
-  void test()
-  {
-
-    
-  }     
 
 }

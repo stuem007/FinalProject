@@ -76,6 +76,8 @@ class Water extends Obstacle
     PShape cell;
     cell = createShape(BOX, cellSize, 10, cellSize);
     cell.translate(pos.x - sideL / 2 + cellSize / 2, yHeight, pos.z + cellSize / 2);
+    cell.setFill(color(0, 0, 200));
+    cell.setStroke(192);
     for (int i = 0; i < numCells; i ++)
     {
       //cell.translate(cellSize, 0, -1 * (sideL - cellSize));
@@ -87,8 +89,7 @@ class Water extends Obstacle
         
         //cell = createShape(BOX, cellSize, heights[i][j], cellSize);
         //cell.translate(pos.x - sideL / 2 + cellSize / 2 + i * cellSize, pos.y - heights[i][j] / 2, pos.z + cellSize / 2 + j * cellSize);
-        cell.setFill(color(0, 0, 200));
-        cell.setStroke(192);
+    
         shape(cell);
         cell.translate(0, heights[i][j], cellSize);
       }
@@ -119,15 +120,15 @@ class Container
      
      PShape side = createShape(BOX, sideL, sideH, sideW);
      side.translate(corner.x, corner.y - sideH / 2, corner.z);
-     side.setTexture(im);
+     //side.setTexture(im);
      side.setFill(wColor);
-     //side.setStroke(192);
+     side.setStroke(192);
      Sides.add(side);
      
      side = createShape(BOX, sideL, sideH, sideW);
      side.translate(corner.x, corner.y - sideH / 2, corner.z + sideL);
      side.setTexture(im);
-     side.setFill(wColor);
+     //side.setFill(wColor);
      //side.setStroke(192);
      Sides.add(side);
      

@@ -25,23 +25,29 @@ class Wall extends Obstacle
       {
         if (a.len > dim.x)
         {
-          if ((a.pos.x < pos.x && a.pos.x + a.vel.x + a.acc.x > pos.x) || (a.pos.x > pos.x && a.pos.x + a.vel.x + a.acc.x < pos.x))
+          if ((a.pos.x < pos.x && a.pos.x + (a.vel.x + a.acc.x) * dT > pos.x) || (a.pos.x > pos.x && a.pos.x + (a.vel.x + a.acc.x) * dT < pos.x))
           {
-            Sounds.add(new Sound(0.15));  
+            Sounds.add(new Sound(0.15));
+            a.update(dT);
+            a.moving = false;
           }
         }
-        if (a.len > dim.y)
+        else if (a.len > dim.y)
         {
-          if ((a.pos.y < pos.y && a.pos.y + a.vel.y + a.acc.y > pos.y) || (a.pos.y > pos.y && a.pos.y + a.vel.y + a.acc.y < pos.y))
+          if ((a.pos.y < pos.y && a.pos.y + (a.vel.y + a.acc.y) * dT > pos.y) || (a.pos.y > pos.y && a.pos.y + (a.vel.y + a.acc.y) * dT < pos.y))
           {
             Sounds.add(new Sound(0.15));  
+            a.update(dT);
+            a.moving = false;
           }
         }
-        if (a.len > dim.z)
+        else if (a.len > dim.z)
         {
-          if ((a.pos.z < pos.z && a.pos.z + a.vel.z + a.acc.z > pos.z) || (a.pos.z > pos.z && a.pos.z + a.vel.z + a.acc.z < pos.z))
+          if ((a.pos.z < pos.z && a.pos.z + (a.vel.z + a.acc.z) * dT > pos.z) || (a.pos.z > pos.z && a.pos.z + (a.vel.z + a.acc.z) * dT < pos.z))
           {
             Sounds.add(new Sound(0.15));  
+            a.update(dT);
+            a.moving = false;
           }
         }
       }

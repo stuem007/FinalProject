@@ -2,10 +2,10 @@ class Water extends Obstacle
 {
   PShape shape;
   PVector pos;
-  float sideL;
-  float sideH = 50;
+  float wallL;
+  float wallW = 2;
+  float wallH = 50;
   float cellSize;
-  Container con;
   int numCells = 20;
   // PVector x is velocity, y is height
   float heights[][] = new float[numCells][numCells];
@@ -16,19 +16,37 @@ class Water extends Obstacle
     this(new PVector(0, yHeight - 20, 0), 20);
   }
   
-  Water(PVector posIn, float sideLIn)
+  Water(PVector posIn, float wallLIn)
   {
     pos = posIn;
-    sideL = sideLIn;
+    wallL = wallLIn;
     shape = createShape();
-    con = new Container(pos, sideL, sideH);
-    cellSize = sideL / numCells;
+    
+    PImage im = loadImage("pool_floor.jpg");
+     
+    Wall wall = new Wall(new PVector(wallL, wallH, wallW), new PVector(pos.x, pos.y - wallH / 2, pos.z), im);
+    Obstacles.add(wall);
+    
+    wall = new Wall(new PVector(wallL, wallH, wallW), new PVector(pos.x, pos.y - wallH / 2, pos.z + wallL), im);
+    Obstacles.add(wall);
+    
+    wall = new Wall(new PVector(wallW, wallH, wallL), new PVector(pos.x - wallL / 2, pos.y - wallH / 2, pos.z + wallL / 2), im);
+    Obstacles.add(wall);
+    
+    wall = new Wall(new PVector(wallW, wallH, wallL), new PVector(pos.x + wallL / 2, pos.y - wallH / 2, pos.z + wallL / 2), im);
+    Obstacles.add(wall);
+    
+    wall = new Wall(new PVector(wallL, 0, wallL), new PVector(pos.x, yHeight - 0.1, pos.z + wallL / 2), im);
+    Obstacles.add(wall);
+    
+    
+    cellSize = wallL / numCells;
     
     for (int i = 0; i < numCells; i ++)
     {
       for (int j = 0; j < numCells; j ++)
       {
-        heights[i][j] = random(sideH - 25, sideH - 5);
+        heights[i][j] = random(wallH - 25, wallH - 5);
         vels[i][j] = 0;
       }
     }
@@ -38,24 +56,21 @@ class Water extends Obstacle
   
   void update(float dT)
   {
-    con.update();
-    
-    
+     
     for (Arrow a : Arrows)
     {
       if (a.moving)
       {
-        if (a.pos.x > pos.x && a.pos.x < pos.x + sideL && a.pos.z > pos.z && a.pos.z < pos.z + sideL)
+        if (a.pos.x > pos.x && a.pos.x < pos.x + wallL && a.pos.z > pos.z && a.pos.z < pos.z + wallL)
         {
-          if (a.pos.y + a.vel.y + a.acc.y > (yHeight - (sideH - 5)))
+          if (a.pos.y + a.vel.y + a.acc.y > (yHeight - (wallH - 5)))
           {
             Sounds.add(new Sound(0.3)); 
           }
         }        
       }
     }
-    
-    
+      
     
     
     float nSum;
@@ -93,12 +108,12 @@ class Water extends Obstacle
     
     PShape cell;
     cell = createShape(BOX, cellSize, 10, cellSize);
-    cell.translate(pos.x - sideL / 2 + cellSize / 2, yHeight, pos.z + cellSize / 2);
+    cell.translate(pos.x - wallL / 2 + cellSize / 2, yHeight, pos.z + cellSize / 2);
     cell.setFill(color(0, 0, 200));
     cell.setStroke(192);
     for (int i = 0; i < numCells; i ++)
     {
-      //cell.translate(cellSize, 0, -1 * (sideL - cellSize));
+      //cell.translate(cellSize, 0, -1 * (wallL - cellSize));
       for (int j = 0; j < numCells; j ++)
       {
         heights[i][j] += vels[i][j];
@@ -106,80 +121,14 @@ class Water extends Obstacle
         cell.translate(0, -1 * heights[i][j], 0);
         
         //cell = createShape(BOX, cellSize, heights[i][j], cellSize);
-        //cell.translate(pos.x - sideL / 2 + cellSize / 2 + i * cellSize, pos.y - heights[i][j] / 2, pos.z + cellSize / 2 + j * cellSize);
+        //cell.translate(pos.x - wallL / 2 + cellSize / 2 + i * cellSize, pos.y - heights[i][j] / 2, pos.z + cellSize / 2 + j * cellSize);
     
         shape(cell);
         cell.translate(0, heights[i][j], cellSize);
       }
-      cell.translate(cellSize, 0, -1 * sideL);
+      cell.translate(cellSize, 0, -1 * wallL);
     }
     
   }
    
-}
-
-
-class Container
-{
-  ArrayList<PShape> Sides = new ArrayList<PShape>();
-  PVector corner;
-  float sideL;
-  float sideW = 2;
-  float sideH;
-  color wColor = color(100, 100, 255);
-  
-  Container(PVector cornerIn, float sideLIn, float sideHIn)
-  {
-     corner = cornerIn;
-     sideL = sideLIn;
-     sideH = sideHIn;
-     
-     PImage im = loadImage("pool_floor.jpg");
-     
-     PShape side = createShape(BOX, sideL, sideH, sideW);
-     side.translate(corner.x, corner.y - sideH / 2, corner.z);
-     //side.setTexture(im);
-     side.setFill(wColor);
-     side.setStroke(192);
-     Sides.add(side);
-     
-     side = createShape(BOX, sideL, sideH, sideW);
-     side.translate(corner.x, corner.y - sideH / 2, corner.z + sideL);
-     side.setTexture(im);
-     //side.setFill(wColor);
-     //side.setStroke(192);
-     Sides.add(side);
-     
-     side = createShape(BOX, sideW, sideH, sideL);
-     side.translate(corner.x - sideL / 2, corner.y - sideH / 2, corner.z + sideL / 2);
-     side.setTexture(im);
-     //side.setFill(wColor);
-     //side.setStroke(192);
-     Sides.add(side);
-     
-     side = createShape(BOX, sideW, sideH, sideL);
-     side.translate(corner.x + sideL / 2, corner.y - sideH / 2, corner.z + sideL / 2);
-     side.setTexture(im);
-     //side.setFill(wColor);
-     //side.setStroke(192);
-     Sides.add(side); 
-     
-     side = createShape(BOX, sideL, 0, sideL);
-     side.translate(corner.x, yHeight - 0.1, corner.z + sideL / 2);
-     side.setTexture(im);
-     //side.setFill(color(0, 0, 200));
-     //side.setStroke(192);
-     Sides.add(side);
-  }
-  
-  void update()
-  { 
-    
-    for (PShape s : Sides)
-    {
-      shape(s); 
-    }
-  }
-  
-  
 }

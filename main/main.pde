@@ -30,24 +30,11 @@ void setup()
   
   createStartingObjects();
   
-  camera = new Camera(width / 2.0, height / 2.0, (height / 2.0) / tan(PI * 30.0 / 180.0), width / 2.0, height / 2.0, 0, 0, 1, 0);
+  camera = new Camera(width / 2.0, height / 2.0, 450, width / 2.0, height / 2.0, 0, 0, 1, 0);
   
   
   minim = new Minim(this);
   aOut = minim.getLineOut();
-  waves = new ArrayList<Oscil>();
-  waves.add(new Oscil(55, 0.5f, Waves.QUARTERPULSE));
-  
-  for (Oscil w : waves)
-  {
-   // w.patch(aOut); 
-  }
-  
-  //(new Noise(110, Noise.Tint.PINK)).patch(aOut);
-  
-  //wave = new Oscil(460, 0.5f, Waves.SINE);
-  //wave.patch(aOut);
-  
   
   lastTime = millis();
   
@@ -69,12 +56,6 @@ void draw()
   lastTime = currentTime;
   camera.update(dT);
   updateObjects(dT);
-  
-  
-  /*for (PShape w : Room)
-  {
-    shape(w);
-  }*/
   
   for (Arrow a : Arrows)
   {
@@ -102,10 +83,10 @@ void draw()
 
 public void createStartingObjects()
 {
-  PImage im = loadImage("floor.jpg");  
+  PImage im = loadImage("floor2.jpg");  
   Obstacles.add(new Wall(new PVector(xWidth, 0, zDepth), new PVector(xWidth / 2, yHeight, zDepth / 2), im));
   Obstacles.add(new Wall(new PVector(xWidth, 0, zDepth), new PVector(xWidth / 2, 0, zDepth / 2), im));
-  im = loadImage("wall.jpg");
+  im = loadImage("wall2.jpg");
   Obstacles.add(new Wall(new PVector(xWidth, yHeight, 0), new PVector(xWidth / 2, yHeight - height / 2, 0), im));
   Obstacles.add(new Wall(new PVector(xWidth, yHeight, 0), new PVector(xWidth / 2, yHeight - height / 2, zDepth), im));
   Obstacles.add(new Wall(new PVector(0, yHeight, zDepth), new PVector(0, yHeight - height / 2, zDepth / 2), im));

@@ -60,22 +60,26 @@ class Water extends Obstacle
   {
      
     int iCollide, jCollide;
+    float nextX, nextY, nextZ;
     for (Arrow a : Arrows)
     {
       if (a.moving)
       {
-        if (a.pos.x > (pos.x - wallL / 2) && a.pos.x < pos.x + wallL / 2 && a.pos.z > pos.z && a.pos.z < pos.z + wallL)
+        nextX = a.pos.x + a.vel.x + a.acc.x;
+        nextY = a.pos.y + a.vel.y + a.acc.y;
+        nextZ = a.pos.z + a.vel.z + a.acc.z;
+        if (nextX > (pos.x - wallL / 2) && nextX < pos.x + wallL / 2 && nextZ > pos.z && nextZ < pos.z + wallL)
         {
-          if (a.pos.y + a.vel.y + a.acc.y > (yHeight - (wallH - 5)))
+          if (nextY > (yHeight - (wallH - 5)))
           {
             Sounds.add(new Sound(0.05)); 
-            iCollide = (int)((a.pos.x - (pos.x - wallL / 2)) / cellSize);
-            jCollide = (int)((a.pos.z - pos.z) / cellSize);
+            iCollide = (int)((nextX - (pos.x - wallL / 2)) / cellSize);
+            jCollide = (int)((nextZ - pos.z) / cellSize);
             vels[iCollide][jCollide] = 10;
                  
             for (int i = 0; i < 100; i ++)
             {
-              particles.add(new Particle(new PVector(a.pos.x - (pos.x - wallL / 2), -1 * (wallH - 5), a.pos.z - pos.z), new PVector(random(-20, 20), -1 * random(arrowSpeed / 4, arrowSpeed / 2), random(-20, 20)), new PVector(0, 50, 0), 5)) ;
+              particles.add(new Particle(new PVector(nextX - (pos.x - wallL / 2), -1 * (wallH - 5), nextZ - pos.z), new PVector(random(-20, 20), -1 * random(arrowSpeed / 4, arrowSpeed / 2), random(-20, 20)), new PVector(0, 50, 0), 5)) ;
             }
           }
         }        

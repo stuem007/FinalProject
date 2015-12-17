@@ -40,6 +40,24 @@ class Water extends Obstacle
   {
     con.update();
     
+    
+    for (Arrow a : Arrows)
+    {
+      if (a.moving)
+      {
+        if (a.pos.x > pos.x && a.pos.x < pos.x + sideL && a.pos.z > pos.z && a.pos.z < pos.z + sideL)
+        {
+          if (a.pos.y + a.vel.y + a.acc.y > (yHeight - (sideH - 5)))
+          {
+            Sounds.add(new Sound(0.3)); 
+          }
+        }        
+      }
+    }
+    
+    
+    
+    
     float nSum;
     int nCt;
     for (int i = 0; i < numCells; i ++)
@@ -155,7 +173,8 @@ class Container
   }
   
   void update()
-  {
+  { 
+    
     for (PShape s : Sides)
     {
       shape(s); 

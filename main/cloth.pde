@@ -53,7 +53,7 @@ class Cloth extends Obstacle
   
   
   void update(float dT)
-  {
+  {      
 
     float vect1, vect2, force;
     PVector diff;
@@ -199,8 +199,22 @@ class Cloth extends Obstacle
       }  
     }
     
-  
+    // Arrow Collisions
+    for (Arrow a : Arrows)
+    {
+      if (a.moving)
+      {
+        if (a.pos.x > xStart && a.pos.x < xStart + spread * 15 && a.pos.y > yStart && a.pos.y < yStart + spread * 15)
+        {
+          if ((a.pos.z < zStart && a.pos.z + a.vel.z + a.acc.z > zStart) || (a.pos.z > zStart && a.pos.z + a.vel.z + a.acc.z < zStart))
+          {
+            Sounds.add(new Sound(0.3)); 
+          }
+        }        
+      }
+    }
     
+    // Update positions
     for (int x = 0; x < 15; x ++)
     {
       vertices[x][0].velTemp = new PVector(0, 0, 0); 

@@ -30,14 +30,14 @@ class Wall extends Obstacle
             Sounds.add(new Sound(0.15));  
           }
         }
-        else if (a.len > dim.y)
+        if (a.len > dim.y)
         {
           if ((a.pos.y < pos.y && a.pos.y + a.vel.y + a.acc.y > pos.y) || (a.pos.y > pos.y && a.pos.y + a.vel.y + a.acc.y < pos.y))
           {
             Sounds.add(new Sound(0.15));  
           }
         }
-        else if (a.len > dim.z)
+        if (a.len > dim.z)
         {
           if ((a.pos.z < pos.z && a.pos.z + a.vel.z + a.acc.z > pos.z) || (a.pos.z > pos.z && a.pos.z + a.vel.z + a.acc.z < pos.z))
           {

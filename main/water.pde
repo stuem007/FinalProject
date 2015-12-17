@@ -115,34 +115,41 @@ class Container
      sideL = sideLIn;
      sideH = sideHIn;
      
+     PImage im = loadImage("pool_floor.jpg");
+     
      PShape side = createShape(BOX, sideL, sideH, sideW);
      side.translate(corner.x, corner.y - sideH / 2, corner.z);
+     side.setTexture(im);
      side.setFill(wColor);
-     side.setStroke(192);
+     //side.setStroke(192);
      Sides.add(side);
      
      side = createShape(BOX, sideL, sideH, sideW);
      side.translate(corner.x, corner.y - sideH / 2, corner.z + sideL);
+     side.setTexture(im);
      side.setFill(wColor);
-     side.setStroke(192);
+     //side.setStroke(192);
      Sides.add(side);
      
      side = createShape(BOX, sideW, sideH, sideL);
      side.translate(corner.x - sideL / 2, corner.y - sideH / 2, corner.z + sideL / 2);
-     side.setFill(wColor);
-     side.setStroke(192);
+     side.setTexture(im);
+     //side.setFill(wColor);
+     //side.setStroke(192);
      Sides.add(side);
      
      side = createShape(BOX, sideW, sideH, sideL);
      side.translate(corner.x + sideL / 2, corner.y - sideH / 2, corner.z + sideL / 2);
-     side.setFill(wColor);
-     side.setStroke(192);
-     Sides.add(side);
+     side.setTexture(im);
+     //side.setFill(wColor);
+     //side.setStroke(192);
+     Sides.add(side); 
      
      side = createShape(BOX, sideL, 0, sideL);
      side.translate(corner.x, yHeight - 0.1, corner.z + sideL / 2);
-     side.setFill(color(0, 0, 200));
-     side.setStroke(192);
+     side.setTexture(im);
+     //side.setFill(color(0, 0, 200));
+     //side.setStroke(192);
      Sides.add(side);
   }
   

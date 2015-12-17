@@ -1,3 +1,6 @@
+import ddf.minim.*;
+import ddf.minim.ugens.*;
+
 ArrayList<Arrow> Arrows = new ArrayList<Arrow>();
 ArrayList<Obstacle> Obstacles = new ArrayList<Obstacle>();
 ArrayList<PShape> Room = new ArrayList<PShape>();
@@ -6,6 +9,7 @@ float lastTime;
 float currentTime;
 float dT;
 public static Camera camera;
+public static Sound sound;
 float timeCount = 0;
 float vAir = 0;
 PVector wind = new PVector(0, -0.1, 0);
@@ -15,7 +19,9 @@ float xWidth = 1500;
 float zDepth = 1500;
 float yHeight = 500;
 
-
+Minim minim;
+AudioOutput aOut;
+Oscil wave;
 
 void setup()
 {  
@@ -24,6 +30,14 @@ void setup()
   createStartingObjects();
   
   camera = new Camera(width / 2.0, height / 2.0, (height / 2.0) / tan(PI * 30.0 / 180.0), width / 2.0, height / 2.0, 0, 0, 1, 0);
+  
+  
+  minim = new Minim(this);
+  aOut = minim.getLineOut();
+  
+  wave = new Oscil(440, 0.5f, Waves.SINE);
+  wave.patch(aOut);
+  
   
   lastTime = millis();
   
@@ -62,42 +76,49 @@ void draw()
     o.update(dT);  
   }
   
-  
 
 }
 
 
 public void createStartingObjects()
 {
+  PImage im = loadImage("floor.jpg");
   
   wall = createShape(BOX, xWidth, 0, zDepth);
   wall.translate(xWidth / 2, height, zDepth / 2);
-  wall.setFill(color(85, 47, 39));
-  wall.setStroke(192);
+  wall.setTexture(im);
+  //wall.setFill(color(85, 47, 39));
+  //wall.setStroke(192);
   Room.add(wall);
+  
+  im = loadImage("wall.jpg");
   
   wall = createShape(BOX, xWidth, yHeight, 0);
   wall.translate(xWidth / 2, height - yHeight / 2, 0);
-  wall.setFill(color(85, 47, 39));
-  wall.setStroke(192);
+  wall.setTexture(im);
+  //wall.setFill(color(85, 47, 39));
+  //wall.setStroke(192);
   Room.add(wall);
   
   wall = createShape(BOX, xWidth, yHeight, 0);
   wall.translate(xWidth / 2, height - yHeight / 2, zDepth);
-  wall.setFill(color(85, 47, 39));
-  wall.setStroke(192);
+  wall.setTexture(im);
+  //wall.setFill(color(85, 47, 39));
+  //wall.setStroke(192);
   Room.add(wall);
   
   wall = createShape(BOX, 0, yHeight, zDepth);
   wall.translate(0, height - yHeight / 2, zDepth / 2);
-  wall.setFill(color(85, 47, 39));
-  wall.setStroke(192);
+  wall.setTexture(im);
+  //wall.setFill(color(85, 47, 39));
+  //wall.setStroke(192);
   Room.add(wall);
   
   wall = createShape(BOX, 0, yHeight, zDepth);
   wall.translate(xWidth, height - yHeight / 2, zDepth / 2);
-  wall.setFill(color(85, 47, 39));
-  wall.setStroke(192);
+  wall.setTexture(im);
+  //wall.setFill(color(85, 47, 39));
+  //wall.setStroke(192);
   Room.add(wall);
   
   Arrows.add(new Arrow());
@@ -106,7 +127,7 @@ public void createStartingObjects()
   
   Obstacles.add(new Cloth(50, 0, 0));
   
-  Obstacles.add(new Water(new PVector(600, yHeight, 100), 400));
+  Obstacles.add(new Water(new PVector(1200, yHeight, 100), 400));
   
 }
 

@@ -71,6 +71,11 @@ void keyPressed()
       last.nocked = false;      
     }
   }
+  else if (key == 't')
+  {
+    sound.test(); 
+    
+  }
 }
 
 /*void keyReleased()

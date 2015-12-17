@@ -131,21 +131,21 @@ class Cloth extends Obstacle
           vAvg.add(v3.vel);
           vAvg.div(3);
           
-          print("pos1: " + v1.pos + " pos2: " + v2.pos + " pos3: " + v3.pos + "\n");
+          //print("pos1: " + v1.pos + " pos2: " + v2.pos + " pos3: " + v3.pos + "\n");
           
           PVector nTerm1 = new PVector(v2.pos.x - v1.pos.x, v2.pos.y - v1.pos.y, v2.pos.z - v1.pos.z);
           PVector nTerm2 = new PVector(v3.pos.x - v1.pos.x, v3.pos.y - v1.pos.y, v3.pos.z - v1.pos.z);
           
-          print("nTerm1: " + nTerm1 + " nTerm2: " + nTerm2 + "\n");
+          //print("nTerm1: " + nTerm1 + " nTerm2: " + nTerm2 + "\n");
     
           PVector nStar = new PVector(0, 0, 0);
           PVector.cross(nTerm1, nTerm2, nStar);
           
-          print("nStar: " + nStar + "\n");
+          //print("nStar: " + nStar + "\n");
           
           PVector fTotal = nStar.mult((10 * PVector.dot(vAvg, vAvg) * PVector.dot(vAvg, nStar) / (PVector.dot(nStar, nStar))));
           
-          print("fTotal: " + fTotal + "\n");
+          //print("fTotal: " + fTotal + "\n");
           
           if (!Float.isNaN(fTotal.x) & !Float.isNaN(fTotal.y) & !Float.isNaN(fTotal.z))
           {
@@ -177,16 +177,16 @@ class Cloth extends Obstacle
           PVector nTerm1 = new PVector(v2.pos.x - v1.pos.x, v2.pos.y - v1.pos.y, v2.pos.z - v1.pos.z);
           PVector nTerm2 = new PVector(v3.pos.x - v1.pos.x, v3.pos.y - v1.pos.y, v3.pos.z - v1.pos.z);
           
-          print("nTerm1: " + nTerm1 + " nTerm2: " + nTerm2 + "\n");
+          //print("nTerm1: " + nTerm1 + " nTerm2: " + nTerm2 + "\n");
     
           PVector nStar = new PVector(0, 0, 0);
           PVector.cross(nTerm1, nTerm2, nStar);
           
-          print("nStar: " + nStar + "\n");
+          //print("nStar: " + nStar + "\n");
           
           PVector fTotal = nStar.mult((PVector.dot(vAvg, vAvg) * PVector.dot(vAvg, nStar) / (20000000 * PVector.dot(nStar, nStar))));
           
-          print("fTotal: " + fTotal + "\n");
+          //print("fTotal: " + fTotal + "\n");
           
           if (!Float.isNaN(fTotal.x) & !Float.isNaN(fTotal.y) & !Float.isNaN(fTotal.z))
           {

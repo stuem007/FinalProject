@@ -20,6 +20,9 @@ class Arrow
     acc = new PVector(0, 0, 0);
     nocked = true;
  
+    //rect = loadShape("arrow.obj");
+    //rect.rotateY(PI / 2);
+    //rect.translate(10, 0, 0);
     rect = createShape(BOX, 10, 10, 100);
     rect.translate(pos.x, pos.y, pos.z);
     rect.setFill(color(125, 125, 125));
@@ -30,16 +33,16 @@ class Arrow
   {
     if (!nocked)
     {
-      pushMatrix();
+      /*pushMatrix();
       translate(pos.x, pos.y, pos.z);
       rect.rotate(PI / 300);
-      popMatrix();
-      /*vel.add(PVector.mult(gravity, dT));
+      popMatrix();*/
+      vel.add(PVector.mult(gravity, dT));
       vel.add(PVector.mult(acc, dT));
       pos.add(PVector.mult(vel, dT));
-      rect.translate(vel.x * dT, vel.y * dT, vel.z * dT);*/
+      rect.translate(vel.x * dT, vel.y * dT, vel.z * dT);
     }
-    shape(rect); 
+    //shape(rect, pos.x, pos.y, 20, 100); 
   }
   
 }
